@@ -12,8 +12,23 @@
 <body>
   <h1 style="color: blue">IHOP Scoreboard :)</h1>
   <p>Big Boy Stream Infrastructure</p>
-  Team A Name:<input type="text" id="teamA" />
+  Team A Name:
+  <input type="text" id="teamA" />
   <input type="button" onClick="updateTeamA()" value="update"/>
+  <br />
+  Team A Score:
+  <input type="button" id="incrementA" onclick="incrementScoreA()" value="+" />
+  <input type="text" id="scoreA" />
+  <input type="button" onclick="updateScoreA()" value="update"/>
+  <br /><br />
+  Team B Name:
+  <input type="text" id="teamB" />
+  <input type="button" onClick="updateTeamB()" value="update"/>
+  <br />
+  Team B Score:
+  <input type="button" id="incrementB" onclick="incrementScoreB()" value="+" />
+  <input type="text" id="scoreB" />
+  <input type="button" onclick="updateScoreB()" value="update"/>
 
 </body>
 
