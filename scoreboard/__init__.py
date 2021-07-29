@@ -65,8 +65,20 @@ def create_app(test_config=None):
         scorefile.close()
         return str(score)
 
+    @app.route('/scoreB/<int:newScore>')
+    def scoreBSet(newScore):
+        scorefile = open(app.config["SCORE_B"], 'r+')
+        score = scorefile.read()
+        print(f"retrieved value: {score}")
+        score = newScore
+        scorefile.seek(0)
+        scorefile.write(str(score))
+        scorefile.truncate()
+        scorefile.close()
+        return str(score)
+
     @app.route('/teamA/<newName>')
-    def teamA():
+    def teamA(newName):
         namefile = open(app.config["TEAM_A"], 'r+')
         name = namefile.read()
         print(f"retrieved value: {name}")
@@ -78,7 +90,7 @@ def create_app(test_config=None):
         return name
 
     @app.route('/teamB/<newName>')
-    def teamB():
+    def teamB(newName):
         namefile = open(app.config["TEAM_B"], 'r+')
         name = namefile.read()
         print(f"retrieved value: {name}")
