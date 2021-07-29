@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 
 
 def create_app(test_config=None):
@@ -19,7 +19,7 @@ def create_app(test_config=None):
 
     @app.route('/')
     def hello():
-        return 'Hello, World!'
+        return render_template("index.html")
 
     @app.route('/scoreA')
     def scoreAincrement():
@@ -65,7 +65,28 @@ def create_app(test_config=None):
         scorefile.close()
         return str(score)
 
-    @app.route('/teamA/<name>')
+    @app.route('/teamA/<newName>')
     def teamA():
-        return 1
+        namefile = open(app.config["TEAM_A"], 'r+')
+        name = namefile.read()
+        print(f"retrieved value: {name}")
+        name = newName
+        namefile.seek(0)
+        namefile.write(name)
+        namefile.truncate()
+        namefile.close()
+        return name
+
+    @app.route('/teamB/<newName>')
+    def teamB():
+        namefile = open(app.config["TEAM_B"], 'r+')
+        name = namefile.read()
+        print(f"retrieved value: {name}")
+        name = newName
+        namefile.seek(0)
+        namefile.write(name)
+        namefile.truncate()
+        namefile.close()
+        return name
+
     return app
