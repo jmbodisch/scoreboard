@@ -3,11 +3,9 @@ def updateFile(file, newValue):
 
     if(validateInput(file, newValue)):
         writeFile(file, newValue)
-        return
     else:
-        print("invalid input")
-        return
-    return
+        return "failed"
+    return "ok"
 
 def validateInput(file, newValue):
     return True
