@@ -1,7 +1,7 @@
 function updateTeamA() {
     var newName = document.getElementById("teamA").value;
     var request = new XMLHttpRequest();
-    request.open("GET", '/teamA/'+newName);
+    request.open("GET", '/update/teamA/'+newName);
     request.onload = function() {
         document.getElementById("teamA").value = request.responseText;
     };
@@ -11,7 +11,7 @@ function updateTeamA() {
 function updateTeamB() {
     var newName = document.getElementById("teamB").value;
     var request = new XMLHttpRequest();
-    request.open("GET", '/teamB/'+newName);
+    request.open("GET", '/update/teamB/'+newName);
     request.onload = function() {
         document.getElementById("teamB").value = request.responseText;
     };
@@ -21,7 +21,7 @@ function updateTeamB() {
 function updateScoreA() {
     var newName = document.getElementById("scoreA").value;
     var request = new XMLHttpRequest();
-    request.open("GET", '/scoreA/'+newName);
+    request.open("GET", '/update/scoreA/'+newName);
     request.onload = function() {
         document.getElementById("scoreA").value = request.responseText;
     };
@@ -31,7 +31,7 @@ function updateScoreA() {
 function updateScoreB() {
     var newName = document.getElementById("scoreB").value;
     var request = new XMLHttpRequest();
-    request.open("GET", '/scoreB/'+newName);
+    request.open("GET", '/update/scoreB/'+newName);
     request.onload = function() {
         document.getElementById("scoreB").value = request.responseText;
     };
@@ -40,7 +40,7 @@ function updateScoreB() {
 
 function incrementScoreA() {
     var request = new XMLHttpRequest();
-    request.open("GET", '/scoreA');
+    request.open("GET", '/update/scoreA');
     request.onload = function() {
         document.getElementById("scoreA").value = request.responseText;
     };
@@ -49,7 +49,7 @@ function incrementScoreA() {
 
 function incrementScoreB() {
     var request = new XMLHttpRequest();
-    request.open("GET", '/scoreB');
+    request.open("GET", '/update/scoreB');
     request.onload = function() {
         document.getElementById("scoreB").value = request.responseText;
     };
