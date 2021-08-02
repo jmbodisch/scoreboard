@@ -1,12 +1,12 @@
 import os
+from json import load
 from flask import Flask, render_template, send_from_directory
-from updateEndpoint import updateFile
-
+from scoreboard.updateEndpoint import updateFile
 
 def create_app(test_config=None):
 
     configFile = open("config.json")
-    config = json.load(configFile)
+    config = load(configFile)
     configFile.close()
 
     app = Flask(__name__, instance_relative_config=False)
