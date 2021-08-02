@@ -10,9 +10,6 @@ def updateFile(file, newValue):
     return
 
 def validateInput(file, newValue):
-    print("validating " + newValue)
-    if file["type"] == "int":
-        return newValue.isdigit
     return True
 
 def writeFile(file, newValue):

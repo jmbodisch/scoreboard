@@ -1,8 +1,14 @@
 import os
 from flask import Flask, render_template
+from updateEndpoint import updateFile
 
 
 def create_app(test_config=None):
+
+    configFile = open("config.json")
+    config = json.load(configFile)
+    configFile.close()
+
     app = Flask(__name__, instance_relative_config=False)
 
     app.config.from_mapping(
@@ -20,6 +26,14 @@ def create_app(test_config=None):
     @app.route('/')
     def hello():
         return render_template("index.html")
+
+    @app.route('/update/<fileName>/<newValue>')
+    def updateFile(fileName, newValue):
+        for file in config["files"]:
+            if file["name"] == filename:
+                updateFile(file, newValue)
+        return
+
 
     @app.route('/scoreA')
     def scoreAincrement():
