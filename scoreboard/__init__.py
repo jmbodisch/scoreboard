@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 from updateEndpoint import updateFile
 
 
@@ -30,10 +30,14 @@ def create_app(test_config=None):
     @app.route('/update/<fileName>/<newValue>')
     def updateFile(fileName, newValue):
         for file in config["files"]:
-            if file["name"] == filename:
+            if file["name"] == fileName:
                 updateFile(file, newValue)
         return
 
+    @app.route('/favicon.ico')
+    def favicon():
+        return send_from_directory(os.path.join(app.root_path, 'static'),
+                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
     @app.route('/scoreA')
     def scoreAincrement():
