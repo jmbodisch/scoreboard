@@ -37,21 +37,3 @@ function updateScoreB() {
     };
     request.send('');
 }
-
-function incrementScoreA() {
-    var request = new XMLHttpRequest();
-    request.open("GET", '/update/scoreA');
-    request.onload = function() {
-        document.getElementById("scoreA").value = request.responseText;
-    };
-    request.send('');
-}
-
-function incrementScoreB() {
-    var request = new XMLHttpRequest();
-    request.open("GET", '/update/scoreB');
-    request.onload = function() {
-        document.getElementById("scoreB").value = request.responseText;
-    };
-    request.send('');
-}
