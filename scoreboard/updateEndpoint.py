@@ -5,7 +5,7 @@ def updateFile(file, newValue):
         writeFile(file, newValue)
     else:
         return "failed"
-    return "ok"
+    return newValue
 
 def validateInput(file, newValue):
     return True
