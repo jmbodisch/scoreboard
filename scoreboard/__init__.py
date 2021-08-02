@@ -28,11 +28,11 @@ def create_app(test_config=None):
         return render_template("index.html")
 
     @app.route('/update/<fileName>/<newValue>')
-    def updateFile(fileName, newValue):
+    def update(fileName, newValue):
         for file in config["files"]:
             if file["name"] == fileName:
                 updateFile(file, newValue)
-        return
+        return "okay"
 
     @app.route('/favicon.ico')
     def favicon():
