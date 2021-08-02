@@ -31,12 +31,12 @@ def create_app(test_config=None):
     def update(fileName, newValue):
         for file in config["files"]:
             if file["name"] == fileName:
-                updateFile(file, newValue)
-        return "okay"
+                response = updateFile(file, newValue)
+        return response
 
     @app.route('/favicon.ico')
     def favicon():
         return send_from_directory(os.path.join(app.root_path, 'static'),
                                 'favicon.ico', mimetype='image/vnd.microsoft.icon')
-                                
+
     return app
