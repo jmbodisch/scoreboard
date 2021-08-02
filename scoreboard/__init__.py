@@ -9,7 +9,7 @@ def create_app(test_config=None):
     config = load(configFile)
     configFile.close()
 
-    app = Flask(__name__, instance_relative_config=False)
+    app = Flask(__name__)
 
     app.config.from_mapping(
         DATABASE=os.path.join(app.instance_path, 'scoreboard.sqlite')
