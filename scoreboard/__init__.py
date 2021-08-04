@@ -25,7 +25,7 @@ def create_app(test_config=None):
 
     @app.route('/')
     def index():
-        return render_template("index.html", files=config["files"])
+        return render_template("index.html", config=config)
 
     @app.route('/update/<fileName>/<newValue>')
     def update(fileName, newValue):
