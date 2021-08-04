@@ -7,6 +7,12 @@ def updateFile(file, newValue):
         return "failed"
     return newValue
 
+def getValue(file):
+    file = open(file["path"], "r")
+    response = file.read()
+    file.close()
+    return response
+
 def validateInput(file, newValue):
     return True
 

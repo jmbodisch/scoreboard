@@ -1,7 +1,7 @@
 import os
 from json import load
 from flask import Flask, render_template, send_from_directory
-from scoreboard.updateEndpoint import updateFile
+from scoreboard.updateEndpoint import updateFile, getValue
 
 def create_app(test_config=None):
 
@@ -32,7 +32,17 @@ def create_app(test_config=None):
         for file in config["files"]:
             if file["name"] == fileName:
                 response = updateFile(file, newValue)
-        return response
+                return response
+        return "not found."
+
+    @app.route('/<fileName>')
+    def get(fileName):
+        for file in config["files"]:
+            if file["name"] == fileName:
+                response = getValue(file)
+                return response
+        return "not found."
+
 
     @app.route('/favicon.ico')
     def favicon():
