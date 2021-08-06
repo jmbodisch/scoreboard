@@ -12,26 +12,28 @@
 <body>
   <h1 style="color: blue">{{ config["title"] }}</h1>
   <p>Big Boy Stream Infrastructure</p>
+  <form id="fields" method="POST" action="/update" >
   {% for file in config["files"] %}
   {{file["label"]}}
 
   {% if file["type"] == "int" %}
   <input type="button" id="dec{{file["name"]}}" onclick="decrement('{{file["name"]}}')" value="-" />
-  <input type="text" id="{{file["name"]}}" />
+  <input type="text" name="{{file["name"]}}" id="{{file["name"]}}" />
   <input type="button" id="inc{{file["name"]}}" onclick="increment('{{file["name"]}}')" value="+" />
   {% endif %}
 
   {% if file["type"] == "string" %}
-  <input type="text" id="{{file["name"]}}" />
+  <input type="text" name="{{file["name"]}}" id="{{file["name"]}}" />
   {% endif %}
 
   {% if file["type"] == "multiline" %}
-  <textarea id="{{file["name"]}}"></textarea>
+  <textarea name="{{file["name"]}}" id="{{file["name"]}}"></textarea>
   {% endif %}
 
   <input type="button" onClick="update('{{file["name"]}}')" value="update"/>
   <br />
   {% endfor %}
+  <input type="submit" />
 </body>
 
 </html>

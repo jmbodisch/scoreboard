@@ -1,6 +1,6 @@
 import os
 from json import load
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, request, url_for
 from scoreboard.updateEndpoint import updateFile, getValue
 
 def create_app(test_config=None):
@@ -34,6 +34,14 @@ def create_app(test_config=None):
                 response = updateFile(file, newValue)
                 return response
         return "not found."
+
+    @app.route('/update', methods =['POST'])
+    def updateMultiline():
+        for variable in request.form:
+            for file in config["files"]:
+                if file["name"] == variable:
+                    updateFile(file, request.form[variable])
+        return render_template("index.html", config=config)
 
     @app.route('/<fileName>')
     def get(fileName):
