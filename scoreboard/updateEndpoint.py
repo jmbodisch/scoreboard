@@ -17,6 +17,7 @@ def validateInput(file, newValue):
     return True
 
 def writeFile(file, newValue):
+    newValue = newValue.replace("\r", "")
     editable = open(file["path"], "r+")
     editable.write(newValue)
     editable.truncate()
