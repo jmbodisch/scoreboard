@@ -29,11 +29,9 @@
   {% if file["type"] == "multiline" %}
   <textarea name="{{file["name"]}}" id="{{file["name"]}}"></textarea>
   {% endif %}
-
-  <input type="button" onClick="update('{{file["name"]}}')" value="update"/>
   <br />
   {% endfor %}
-  <input type="submit" />
+  <input type="submit" value="update" />
 </body>
 
 </html>
