@@ -1,15 +1,11 @@
-// function update(fileName) {
-//     let newValue = document.getElementById(fileName).value;
-//     let request = new XMLHttpRequest();
-//     request.open("GET", '/update/' + fileName + '/' + newValue);
-//     request.onload = function() {
-//         document.getElementById(fileName).value = request.responseText;
-//     };
-//     request.send('');
-// }
-
-function updateMultiline(fileName) {
-    let
+function update(fileName) {
+    let newValue = document.getElementById(fileName).value;
+    let request = new XMLHttpRequest();
+    request.open("GET"),'/update/' + fileName + '/' + newValue;
+    request.onload = function() {
+        document.getElementById(fileName).value = request.responseText;
+    };
+    request.send('');
 }
 
 function increment(fileName) {
