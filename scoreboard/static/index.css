@@ -1,0 +1,20 @@
+
+input[type=button] {
+    width: 10%;
+}
+
+input[type=submit] {
+    width: 100%;
+}
+input[type=text] {
+    width: 30%;
+}
+textarea {
+    width: 50%;
+}
+
+label {
+    float:left;
+    width: 50%;
+    text-align: center;
+}

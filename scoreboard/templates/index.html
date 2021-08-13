@@ -2,36 +2,33 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>{{ config["title"] }}</title>
-  <script src="static/index.js" type="text/javascript"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>{{ config["title"] }}</title>
+	<script src="static/index.js" type="text/javascript"></script>
+	<link href="static/index.css" rel="stylesheet" />
 </head>
 
 <body>
-  <h1 style="color: blue">{{ config["title"] }}</h1>
-  <p>Big Boy Stream Infrastructure</p>
-  <form id="fields" method="POST" action="/update" >
-  {% for file in config["files"] %}
-  {{file["label"]}}
-
-  {% if file["type"] == "int" %}
-  <input type="button" id="dec{{file["name"]}}" onclick="decrement('{{file["name"]}}')" value="-" />
-  <input type="text" name="{{file["name"]}}" id="{{file["name"]}}" />
-  <input type="button" id="inc{{file["name"]}}" onclick="increment('{{file["name"]}}')" value="+" />
-  {% endif %}
-
-  {% if file["type"] == "string" %}
-  <input type="text" name="{{file["name"]}}" id="{{file["name"]}}" />
-  {% endif %}
-
-  {% if file["type"] == "multiline" %}
-  <textarea name="{{file["name"]}}" id="{{file["name"]}}"></textarea>
-  {% endif %}
-  <br />
-  {% endfor %}
-  <input type="submit" value="update" />
+	<h1 style="color: blue">{{ config["title"] }}</h1>
+	<p>Big Boy Stream Infrastructure</p>
+	<form id="fields" method="POST" action="/update" >
+	{% for file in config["files"] %}
+		<label for="{{file["name"]}}">{{file["label"]}}</label>
+		{% if file["type"] == "int" %}
+			<input type="button" id="dec{{file["name"]}}" onclick="decrement('{{file["name"]}}')" value="-" />
+			<input type="text" name="{{file["name"]}}" id="{{file["name"]}}"/>
+			<input type="button" id="inc{{file["name"]}}" onclick="increment('{{file["name"]}}')" value="+" />
+		{% endif %}
+		{% if file["type"] == "string" %}
+		<input type="text" name="{{file["name"]}}" id="{{file["name"]}}" />
+		{% endif %}
+		{% if file["type"] == "multiline" %}
+		<textarea name="{{file["name"]}}" id="{{file["name"]}}"></textarea>
+		{% endif %}<br />
+	{% endfor %}
+	<input type="submit" value="update" />
 </body>
 
 </html>
