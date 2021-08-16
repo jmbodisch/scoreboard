@@ -12,7 +12,7 @@
 
 <body>
 	<h1 style="color: blue">{{ config["title"] }}</h1>
-	<p>Big Boy Stream Infrastructure</p>
+	<h2>Big Boy Stream Infrastructure</h2>
 	<form id="fields" method="POST" action="/update" >
 	{% for file in config["files"] %}
 		<label for="{{file["name"]}}">{{file["label"]}}</label>

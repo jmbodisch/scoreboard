@@ -1,3 +1,10 @@
+input {
+    margin-top: 10px;
+}
+
+h1, h2 {
+    text-align: center;
+}
 
 input[type=button] {
     width: 10%;
@@ -6,15 +13,17 @@ input[type=button] {
 input[type=submit] {
     width: 100%;
 }
+
 input[type=text] {
     width: 30%;
 }
 textarea {
     width: 50%;
+    margin-top: 10px;
 }
 
 label {
     float:left;
-    width: 50%;
-    text-align: center;
+    width: 45%;
+    text-align: left;
 }
