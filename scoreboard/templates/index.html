@@ -11,24 +11,26 @@
 </head>
 
 <body>
-	<h1 style="color: blue">{{ config["title"] }}</h1>
-	<h2>Big Boy Stream Infrastructure</h2>
-	<form id="fields" method="POST" action="/update" >
-	{% for file in config["files"] %}
-		<label for="{{file["name"]}}">{{file["label"]}}</label>
-		{% if file["type"] == "int" %}
-			<input type="button" id="dec{{file["name"]}}" onclick="decrement('{{file["name"]}}')" value="-" />
-			<input type="text" name="{{file["name"]}}" id="{{file["name"]}}"/>
-			<input type="button" id="inc{{file["name"]}}" onclick="increment('{{file["name"]}}')" value="+" />
-		{% endif %}
-		{% if file["type"] == "string" %}
-		<input type="text" name="{{file["name"]}}" id="{{file["name"]}}" />
-		{% endif %}
-		{% if file["type"] == "multiline" %}
-		<textarea name="{{file["name"]}}" id="{{file["name"]}}"></textarea>
-		{% endif %}<br />
-	{% endfor %}
-	<input type="submit" value="update" />
+	<div id="app-container">
+		<h1 style="color: blue">{{ config["title"] }}</h1>
+		<h2>Big Boy Stream Infrastructure</h2>
+		<form id="fields" method="POST" action="/update" >
+		{% for file in config["files"] %}
+			<label for="{{file["name"]}}">{{file["label"]}}</label>
+			{% if file["type"] == "int" %}
+				<input type="button" id="dec{{file["name"]}}" onclick="decrement('{{file["name"]}}')" value="-" />
+				<input type="text" name="{{file["name"]}}" id="{{file["name"]}}"/>
+				<input type="button" id="inc{{file["name"]}}" onclick="increment('{{file["name"]}}')" value="+" />
+			{% endif %}
+			{% if file["type"] == "string" %}
+			<input type="text" name="{{file["name"]}}" id="{{file["name"]}}" />
+			{% endif %}
+			{% if file["type"] == "multiline" %}
+			<textarea name="{{file["name"]}}" id="{{file["name"]}}"></textarea>
+			{% endif %}<br />
+		{% endfor %}
+		<input type="submit" value="update" />
+	</div>
 </body>
 
 </html>
