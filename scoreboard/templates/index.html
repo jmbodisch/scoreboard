@@ -19,7 +19,7 @@
 			<label for="{{file["name"]}}">{{file["label"]}}</label>
 			{% if file["type"] == "int" %}
 				<input type="button" id="dec{{file["name"]}}" onclick="decrement('{{file["name"]}}')" value="-" />
-				<input type="text" name="{{file["name"]}}" id="{{file["name"]}}"/>
+				<input type="number" name="{{file["name"]}}" id="{{file["name"]}}"/>
 				<input type="button" id="inc{{file["name"]}}" onclick="increment('{{file["name"]}}')" value="+" />
 			{% endif %}
 			{% if file["type"] == "string" %}
