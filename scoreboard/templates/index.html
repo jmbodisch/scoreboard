@@ -19,14 +19,14 @@
 			<label for="{{file["name"]}}">{{file["label"]}}</label>
 			{% if file["type"] == "int" %}
 				<input type="button" id="dec{{file["name"]}}" onclick="decrement('{{file["name"]}}')" value="-" />
-				<input type="number" name="{{file["name"]}}" id="{{file["name"]}}"/>
+				<input type="number" name="{{file["name"]}}" id="{{file["name"]}}" value="{{file["value"]}}"/>
 				<input type="button" id="inc{{file["name"]}}" onclick="increment('{{file["name"]}}')" value="+" />
 			{% endif %}
 			{% if file["type"] == "string" %}
-			<input type="text" name="{{file["name"]}}" id="{{file["name"]}}" />
+			<input type="text" name="{{file["name"]}}" id="{{file["name"]}}" value="{{file["value"]}}"/>
 			{% endif %}
 			{% if file["type"] == "multiline" %}
-			<textarea name="{{file["name"]}}" id="{{file["name"]}}"></textarea>
+			<textarea name="{{file["name"]}}" id="{{file["name"]}}" >{{file["value"]}}</textarea>
 			{% endif %}<br />
 		{% endfor %}
 		<input type="submit" value="update" />

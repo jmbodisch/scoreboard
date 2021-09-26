@@ -9,6 +9,11 @@ def create_app(test_config=None):
     config = load(configFile)
     configFile.close()
 
+    for file in config["files"]:
+        file["value"] = getValue(file)
+        print("hi" + file["value"])
+        
+
     app = Flask(__name__)
 
     app.config.from_mapping(
@@ -57,4 +62,7 @@ def create_app(test_config=None):
         return send_from_directory(os.path.join(app.root_path, 'static'),
                                 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+    def populateInitialValues():
+        for file in config["files"]:
+            setattr(file, "value", getValue(file))
     return app

@@ -20,5 +20,6 @@ def writeFile(file, newValue):
     newValue = newValue.replace("\r", "")
     editable = open(file["path"], "r+")
     editable.write(newValue)
+    file["value"] = newValue
     editable.truncate()
     editable.close()

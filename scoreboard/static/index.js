@@ -15,7 +15,7 @@ function increment(fileName) {
         let num = parseInt(request.responseText);
         num++;
         document.getElementById(fileName).value = num;
-        update(fileName);
+        document.getElementById("fields").submit();
     };
     request.send('');
 }
@@ -27,7 +27,7 @@ function decrement(fileName) {
         let num = parseInt(request.responseText);
         num--;
         document.getElementById(fileName).value = num;
-        update(fileName)
+        document.getElementById("fields").submit();
     };
     request.send('');
 }
