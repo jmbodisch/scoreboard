@@ -31,3 +31,14 @@ function decrement(fileName) {
     };
     request.send('');
 }
+
+function saveConfig() {
+    let request = new XMLHttpRequest();
+    request.open("GET", '/save');
+    request.onload = function() {
+        if (request.responseText == "200"){
+            alert("Save successful");
+        }
+   }
+   request.send('');
+}

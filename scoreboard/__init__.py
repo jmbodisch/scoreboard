@@ -1,5 +1,5 @@
 import os
-from json import load
+from json import load, dump
 import string
 from flask import Flask, render_template, send_from_directory, request, url_for
 from scoreboard.updateEndpoint import updateFile, getValue
@@ -80,6 +80,13 @@ def create_app(test_config=None):
                 response = getValue(config["root"], file)
                 return response
         return "not found."
+
+    @app.route('/save')
+    def saveConfig():
+        file = open('config.json', 'w+')
+        dump(config, file)
+        file.close()
+        return "200"
 
 
     @app.route('/favicon.ico')
