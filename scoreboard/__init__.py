@@ -9,6 +9,9 @@ def create_app(test_config=None):
     config = load(configFile)
     configFile.close()
 
+    if not 'root' in config:
+        config["root"] = ''
+
     for file in config["files"]:
         file["value"] = getValue(config["root"], file)
         print("hi" + file["value"])

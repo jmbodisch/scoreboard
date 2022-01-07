@@ -1,3 +1,4 @@
+from os.path import exists
 
 def updateFile(root, file, newValue):
 
@@ -8,9 +9,12 @@ def updateFile(root, file, newValue):
     return newValue
 
 def getValue(root, file):
-    file = open(root+file["path"], "r")
-    response = file.read()
-    file.close()
+    if exists(root+file["path"]):
+        file = open(root+file["path"], "r")
+        response = file.read()
+        file.close()
+    else:
+        response = ""
     return response
 
 def validateInput(file, newValue):
@@ -18,7 +22,10 @@ def validateInput(file, newValue):
 
 def writeFile(root, file, newValue):
     newValue = newValue.replace("\r", "")
-    editable = open(root+file["path"], "r+")
+    if exists(root+file["path"]):
+        editable = open(root+file["path"], "r+")
+    else:
+        editable = open(root+file["path"], "w+")
     editable.write(newValue)
     file["value"] = newValue
     editable.truncate()

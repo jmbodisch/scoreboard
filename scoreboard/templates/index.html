@@ -14,6 +14,11 @@
 	<div id="app-container">
 		<h1 style="color: blue">{{ config["title"] }}</h1>
 		<h2>Big Boy Stream Infrastructure</h2>
+        <div id="error">
+            {% if '' == config["root"] %}
+            Your root directory is not configured. Please go to the host machine and add a root directory to the config.json file.
+            {% endif %}
+        </div>
 		<form id="fields" method="POST" action="/update" >
 		{% for file in config["files"] %}
 			<label for="{{file["name"]}}">{{file["label"]}}</label>
