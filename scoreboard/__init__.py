@@ -10,7 +10,7 @@ def create_app(test_config=None):
     configFile.close()
 
     for file in config["files"]:
-        file["value"] = getValue(file)
+        file["value"] = getValue(config["root"], file)
         print("hi" + file["value"])
         
 
@@ -36,23 +36,23 @@ def create_app(test_config=None):
     def update(fileName, newValue):
         for file in config["files"]:
             if file["name"] == fileName:
-                response = updateFile(file, newValue)
+                response = updateFile(config["root"], file, newValue)
                 return response
         return "not found."
 
     @app.route('/update', methods =['POST'])
     def updateMultiline():
-        for variable in request.form:
+        for variable in request.form: 
             for file in config["files"]:
                 if file["name"] == variable:
-                    updateFile(file, request.form[variable])
+                    updateFile(config["root"], file, request.form[variable])
         return render_template("index.html", config=config)
 
     @app.route('/<fileName>')
     def get(fileName):
         for file in config["files"]:
             if file["name"] == fileName:
-                response = getValue(file)
+                response = getValue(config["root"], file)
                 return response
         return "not found."
 
@@ -64,5 +64,5 @@ def create_app(test_config=None):
 
     def populateInitialValues():
         for file in config["files"]:
-            setattr(file, "value", getValue(file))
+            setattr(file, "value", getValue(config["root"], file))
     return app

@@ -1,14 +1,14 @@
 
-def updateFile(file, newValue):
+def updateFile(root, file, newValue):
 
     if(validateInput(file, newValue)):
-        writeFile(file, newValue)
+        writeFile(root, file, newValue)
     else:
         return "failed"
     return newValue
 
-def getValue(file):
-    file = open(file["path"], "r")
+def getValue(root, file):
+    file = open(root+file["path"], "r")
     response = file.read()
     file.close()
     return response
@@ -16,9 +16,9 @@ def getValue(file):
 def validateInput(file, newValue):
     return True
 
-def writeFile(file, newValue):
+def writeFile(root, file, newValue):
     newValue = newValue.replace("\r", "")
-    editable = open(file["path"], "r+")
+    editable = open(root+file["path"], "r+")
     editable.write(newValue)
     file["value"] = newValue
     editable.truncate()
