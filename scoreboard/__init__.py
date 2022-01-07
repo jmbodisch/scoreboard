@@ -1,5 +1,6 @@
 import os
 from json import load
+import string
 from flask import Flask, render_template, send_from_directory, request, url_for
 from scoreboard.updateEndpoint import updateFile, getValue
 
@@ -25,6 +26,12 @@ def create_app(test_config=None):
 
     app.config.from_object('config.DevelopmentConfig')
 
+    def format_filename(s):
+        valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+        filename = ''.join(c for c in s if c in valid_chars)
+        filename = filename.replace(' ','_') # I don't like spaces in filenames.
+        return filename
+
     # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
@@ -49,6 +56,21 @@ def create_app(test_config=None):
             for file in config["files"]:
                 if file["name"] == variable:
                     updateFile(config["root"], file, request.form[variable])
+        return render_template("index.html", config=config)
+
+    @app.route('/add', methods=["POST"])
+    def addFile():
+        fileName = format_filename(request.form["name"])
+        filePath = format_filename(request.form["name"]) + ".txt"
+        fileType = request.form["type"]
+        label = request.form["name"]
+        file = {
+            'name': fileName,
+            'label': label,
+            'path': filePath,
+            'type': fileType
+        }
+        config["files"].append(file)
         return render_template("index.html", config=config)
 
     @app.route('/<fileName>')

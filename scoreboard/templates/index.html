@@ -35,6 +35,21 @@
 			{% endif %}<br />
 		{% endfor %}
 		<input type="submit" value="update" />
+        </form>
+        <div id="add-field">
+            <h3>Add a field</h3>
+            <form id="new-field" method="POST" action="/add">
+                <label for="type">File Type</label>
+                <select id="new-field-type" name="type">
+                    <option name="number">int</option>
+                    <option name="string">string</option>
+                    <option name="multiline">multiline</option>
+                </select><br />
+                <label for="name">File Name</label>
+                <input type="text" name="name" id="new-field-name"/>
+                <input type="submit" value="Add field" />
+            </form>
+        </div>
 	</div>
 </body>
 
