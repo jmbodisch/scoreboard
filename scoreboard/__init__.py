@@ -81,6 +81,13 @@ def create_app(test_config=None):
                 return response
         return "not found."
 
+    @app.route('/delete/<fileName>', methods=["GET"])
+    def delete(fileName):
+        for file in config["files"]:
+            if file["name"] == fileName:
+                config["files"].remove(file)
+        return render_template("index.html", config=config)
+
     @app.route('/save')
     def saveConfig():
         file = open('config.json', 'w+')

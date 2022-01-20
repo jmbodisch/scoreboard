@@ -32,6 +32,15 @@ function decrement(fileName) {
     request.send('');
 }
 
+function deleteFile(fileName) {
+    let request = new XMLHttpRequest();
+    request.open("GET",'/delete/' + fileName);
+    request.onload = function() {
+        location.assign('/');
+    };
+    request.send('');
+}
+
 function saveConfig() {
     let request = new XMLHttpRequest();
     request.open("GET", '/save');
