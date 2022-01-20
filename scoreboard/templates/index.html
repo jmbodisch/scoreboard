@@ -20,19 +20,34 @@
             {% endif %}
         </div>
 		<form id="fields" method="POST" action="/update" >
-		{% for file in config["files"] %}
+        {% for file in config["files"] %}
+        <div class="left-side">
+            <a href="/moveup/{{file["name"]}}">
+                <img src="../static/icons/move_up_black_24dp.svg" />
+            </a>
+            <a href="/movedown/{{file["name"]}}">
+                <img src="../static/icons/move_down_black_24dp.svg" />
+            </a>
+        
 			<label for="{{file["name"]}}">{{file["label"]}}</label>
-			{% if file["type"] == "int" %}
-				<input type="button" id="dec{{file["name"]}}" onclick="decrement('{{file["name"]}}')" value="-" />
-				<input type="number" name="{{file["name"]}}" id="{{file["name"]}}" value="{{file["value"]}}"/>
-				<input type="button" id="inc{{file["name"]}}" onclick="increment('{{file["name"]}}')" value="+" />
-			{% endif %}
-			{% if file["type"] == "string" %}
-			<input type="text" name="{{file["name"]}}" id="{{file["name"]}}" value="{{file["value"]}}"/>
-			{% endif %}
-			{% if file["type"] == "multiline" %}
-			<textarea name="{{file["name"]}}" id="{{file["name"]}}" >{{file["value"]}}</textarea>
-			{% endif %}<br />
+        </div>
+			<div class="right-side">
+			    {% if file["type"] == "int" %}
+    				<input type="button" id="dec{{file["name"]}}" onclick="decrement('{{file["name"]}}')" value="-" />
+    				<input type="number" name="{{file["name"]}}" id="{{file["name"]}}" value="{{file["value"]}}"/>
+    				<input type="button" id="inc{{file["name"]}}" onclick="increment('{{file["name"]}}')" value="+" />
+    			{% endif %}
+    			{% if file["type"] == "string" %}
+    			<input type="text" name="{{file["name"]}}" id="{{file["name"]}}" value="{{file["value"]}}"/>
+    			{% endif %}
+    			{% if file["type"] == "multiline" %}
+    			<textarea name="{{file["name"]}}" id="{{file["name"]}}" >{{file["value"]}}</textarea>
+    			{% endif %}
+                <a href="/delete/{{file["name"]}}">
+                    <img src="../static/icons/delete_black_24dp.svg" />
+                </a>
+			</div>
+            <br />
 		{% endfor %}
 		<input type="submit" value="update" />
         </form>
