@@ -4,7 +4,7 @@ import string
 from flask import Flask, render_template, send_from_directory, request, Response
 from flask_cors import CORS
 from scoreboard.updateEndpoint import updateFile, getValue
-from scoreboard.util import format_filename
+from scoreboard.util import *
 
 def create_app(test_config=None):
 
@@ -53,6 +53,7 @@ def create_app(test_config=None):
             for file in config["files"]:
                 if file["name"] == variable:
                     updateFile(config["root"], file, request.form[variable])
+                    sort_config(config)
         return render_template("index.html", config=config), 200
 
     @app.route('/add', methods=["POST"])
@@ -65,9 +66,11 @@ def create_app(test_config=None):
             'name': fileName,
             'label': label,
             'path': filePath,
-            'type': fileType
+            'type': fileType,
+            'order': len(config["files"])
         }
         config["files"].append(file)
+        sort_config(config)
         return render_template("index.html", config=config), 201
 
     @app.route('/<fileName>')
@@ -91,7 +94,6 @@ def create_app(test_config=None):
         dump(config, file)
         file.close()
         return "", 200
-
 
     @app.route('/favicon.ico')
     def favicon():
