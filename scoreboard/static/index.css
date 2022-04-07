@@ -28,3 +28,11 @@ h1, h2 {
 #error {
     color:red;
 }
+
+.details {
+    display: none;
+}
+
+.pointer {
+    cursor: pointer;
+}

@@ -2,7 +2,9 @@ import os
 from json import load, dump
 import string
 from flask import Flask, render_template, send_from_directory, request, url_for
+from flask_cors import CORS
 from scoreboard.updateEndpoint import updateFile, getValue
+from scoreboard.util import format_filename
 
 def create_app(test_config=None):
 
@@ -19,18 +21,13 @@ def create_app(test_config=None):
         
 
     app = Flask(__name__)
+    CORS(app)
 
     app.config.from_mapping(
         DATABASE=os.path.join(app.instance_path, 'scoreboard.sqlite')
     )
 
     app.config.from_object('config.DevelopmentConfig')
-
-    def format_filename(s):
-        valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
-        filename = ''.join(c for c in s if c in valid_chars)
-        filename = filename.replace(' ','_') # I don't like spaces in filenames.
-        return filename
 
     # ensure the instance folder exists
     try:

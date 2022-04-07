@@ -3,7 +3,7 @@ function update(fileName) {
     let request = new XMLHttpRequest();
     request.open("GET"),'/update/' + fileName + '/' + newValue;
     request.onload = function() {
-        document.getElementById(fileName).value = request.responseText;
+        document.getElementById(fileName).value = this.responseText;
     };
     request.send('');
 }
@@ -12,7 +12,7 @@ function increment(fileName) {
     let request = new XMLHttpRequest();
     request.open("GET", '/' + fileName);
     request.onload = function() {
-        let num = parseInt(request.responseText);
+        let num = parseInt(this.responseText);
         num++;
         document.getElementById(fileName).value = num;
         document.getElementById("fields").submit();
@@ -24,7 +24,7 @@ function decrement(fileName) {
     let request = new XMLHttpRequest();
     request.open("GET", '/' + fileName);
     request.onload = function() {
-        let num = parseInt(request.responseText);
+        let num = parseInt(this.responseText);
         num--;
         document.getElementById(fileName).value = num;
         document.getElementById("fields").submit();
@@ -45,9 +45,18 @@ function saveConfig() {
     let request = new XMLHttpRequest();
     request.open("GET", '/save');
     request.onload = function() {
-        if (request.responseText == "200"){
+        if (this.responseText == "200"){
             alert("Save successful");
         }
    }
    request.send('');
+}
+
+function toggleDetails(file) {
+    let div = document.getElementById("details-" + file);
+    if (div.style.display === "none" || div.style.display === "") {
+        div.style.display = "block";
+      } else {
+        div.style.display = "none";
+    }
 }

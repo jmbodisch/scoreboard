@@ -24,12 +24,13 @@
             {% for file in config["files"] %}
             <div class="config-item">
                 <div class="left-side">
-                    <img src="../static/icons/move_up_black_24dp.svg" onclick="moveUp('{{file["name"]}}')"/>
-                    <img src="../static/icons/move_down_black_24dp.svg" onclick="moveDown('{{file["name"]}}')"/>
+                    <img class="pointer" src="../static/icons/move_up_black_24dp.svg" onclick="moveUp('{{file["name"]}}')"/>
+                    <img class="pointer" src="../static/icons/move_down_black_24dp.svg" onclick="moveDown('{{file["name"]}}')"/>
 
         			<label for="{{file["name"]}}">{{file["label"]}}</label>
                 </div>
         			<div class="right-side">
+                        <img class="pointer" src="../static/icons/settings_black_24dp.svg" onclick="toggleDetails('{{file["name"]}}')"/>
         			    {% if file["type"] == "int" %}
                             <input type="button" id="dec{{file["name"]}}" onclick="decrement('{{file["name"]}}')" value="-" />
                             <input type="number" name="{{file["name"]}}" id="{{file["name"]}}" value="{{file["value"]}}"/>
@@ -41,8 +42,17 @@
             			{% if file["type"] == "multiline" %}
             			<textarea name="{{file["name"]}}" id="{{file["name"]}}" >{{file["value"]}}</textarea>
             			{% endif %}
-                        <img src="../static/icons/delete_black_24dp.svg" onclick="deleteFile('{{file["name"]}}')"/>
+                        <img class="pointer" src="../static/icons/delete_black_24dp.svg" onclick="deleteFile('{{file["name"]}}')"/>
         			</div>
+                    <br />
+                    <div class="details" id="details-{{file["name"]}}">
+                        <label for="fileName-{{file["name"]}}">File Name:</label>
+                        <input type="text" name="fileName-{{file["name"]}}" value="{{file["path"]}}"/><br />
+                        <label for="label-{{file["name"]}}">File Label:</label>
+                        <input type="text" name="label-{{file["name"]}}" value="{{file["label"]}}"/><br />
+                        <label for="fileName-{{file["name"]}}">System File Name:</label>
+                        <input type="text" name="name-{{file["name"]}}" value="{{file["name"]}}"/>
+                    </div>
                     <br />
             </div>
     		{% endfor %}
