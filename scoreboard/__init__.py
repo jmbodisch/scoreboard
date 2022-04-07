@@ -73,6 +73,29 @@ def create_app(test_config=None):
         sort_config(config)
         return render_template("index.html", config=config), 201
 
+    @app.route('/movedown/<fileName>')
+    def moveDown(fileName):
+        for file in config["files"]:
+            if file["name"] == fileName:
+                if file["order"] >= len(config["files"]) - 1:
+                    return render_template("index.html", config=config), 400
+                else:
+                    update_order(config, file["order"], file["order"]+1)
+                    return render_template("index.html", config=config), 200
+        return render_template("index.html", config=config), 400
+
+    @app.route('/moveup/<fileName>')
+    def moveUp(fileName):
+        for file in config["files"]:
+            if file["name"] == fileName:
+                if file["order"] <= 0:
+                    return render_template("index.html", config=config), 400
+                else:
+                    update_order(config, file["order"], file["order"]-1)
+                    return render_template("index.html", config=config), 200
+        return render_template("index.html", config=config), 400
+
+
     @app.route('/<fileName>')
     def get(fileName):
         for file in config["files"]:

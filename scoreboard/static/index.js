@@ -32,6 +32,24 @@ function decrement(fileName) {
     request.send('');
 }
 
+function moveUp(fileName) {
+    let request = new XMLHttpRequest();
+    request.open("GET", '/moveup/' + fileName);
+    request.onload = function() {
+        location.assign('/');
+    };
+    request.send('');
+}
+
+function moveDown(fileName) {
+    let request = new XMLHttpRequest();
+    request.open("GET", '/movedown/' + fileName);
+    request.onload = function() {
+        location.assign('/');
+    };
+    request.send('');
+}
+
 function deleteFile(fileName) {
     let request = new XMLHttpRequest();
     request.open("GET",'/delete/' + fileName);
