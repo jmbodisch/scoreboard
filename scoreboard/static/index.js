@@ -45,7 +45,7 @@ function saveConfig() {
     let request = new XMLHttpRequest();
     request.open("GET", '/save');
     request.onload = function() {
-        if (this.responseText == "200"){
+        if (this.status == "200"){
             alert("Save successful");
         }
    }

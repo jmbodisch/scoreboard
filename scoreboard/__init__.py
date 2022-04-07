@@ -1,7 +1,7 @@
 import os
 from json import load, dump
 import string
-from flask import Flask, render_template, send_from_directory, request, url_for
+from flask import Flask, render_template, send_from_directory, request, Response
 from flask_cors import CORS
 from scoreboard.updateEndpoint import updateFile, getValue
 from scoreboard.util import format_filename
@@ -44,8 +44,8 @@ def create_app(test_config=None):
         for file in config["files"]:
             if file["name"] == fileName:
                 response = updateFile(config["root"], file, newValue)
-                return response
-        return "not found."
+                return response, 200
+        return "not found.", 400
 
     @app.route('/update', methods =['POST'])
     def updateMultiline():
@@ -53,7 +53,7 @@ def create_app(test_config=None):
             for file in config["files"]:
                 if file["name"] == variable:
                     updateFile(config["root"], file, request.form[variable])
-        return render_template("index.html", config=config)
+        return render_template("index.html", config=config), 200
 
     @app.route('/add', methods=["POST"])
     def addFile():
@@ -68,29 +68,29 @@ def create_app(test_config=None):
             'type': fileType
         }
         config["files"].append(file)
-        return render_template("index.html", config=config)
+        return render_template("index.html", config=config), 201
 
     @app.route('/<fileName>')
     def get(fileName):
         for file in config["files"]:
             if file["name"] == fileName:
                 response = getValue(config["root"], file)
-                return response
-        return "not found."
+                return response, 200
+        return "not found.", 400
 
     @app.route('/delete/<fileName>', methods=["GET"])
     def delete(fileName):
         for file in config["files"]:
             if file["name"] == fileName:
                 config["files"].remove(file)
-        return render_template("index.html", config=config)
+        return render_template("index.html", config=config), 200
 
     @app.route('/save')
     def saveConfig():
         file = open('config.json', 'w+')
         dump(config, file)
         file.close()
-        return "200"
+        return "", 200
 
 
     @app.route('/favicon.ico')
