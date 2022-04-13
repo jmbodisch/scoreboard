@@ -1,23 +1,29 @@
 import os
-from json import load, dump
+from json import load, dump, dumps
 import string
-from flask import Flask, render_template, send_from_directory, request, Response
+from textwrap import indent
+from flask import Flask, render_template, send_from_directory, request, Response, send_file
 from flask_cors import CORS
 from scoreboard.updateEndpoint import updateFile, getValue
 from scoreboard.util import *
+import logging
 
 def create_app(test_config=None):
 
+    logging.info('loading config.json')
     configFile = open("config.json")
     config = load(configFile)
     configFile.close()
 
     if not 'root' in config:
+        logging.warning('No root directory defined in config. Please specify a root directory, otherwise the local directory will be used.')
         config["root"] = ''
 
+    logging.info('Gathering initial values')
     for file in config["files"]:
+        
         file["value"] = getValue(config["root"], file)
-        print("hi" + file["value"])
+        logging.info(file["name"] + ": " + file["value"])
         
 
     app = Flask(__name__)
@@ -117,6 +123,14 @@ def create_app(test_config=None):
         dump(config, file)
         file.close()
         return "", 200
+
+    @app.route('/download', methods=["GET"])
+    def downloadConfig():
+        configCopy = config.copy()
+        configCopy['root'] = ''
+        return Response(dumps(configCopy, indent=1),
+            mimetype='application/json',
+            headers={'Content-Disposition':'attachment;filename=config.json'})
 
     @app.route('/favicon.ico')
     def favicon():
