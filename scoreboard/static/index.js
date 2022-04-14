@@ -78,20 +78,3 @@ function toggleDetails(file) {
         div.style.display = "none";
     }
 }
-
-function downloadConfig() {
-    let request = new XMLHttpRequest();
-    request.open("GET", '/download');
-    request.onload = function () {
-        //hacky solution from SO but it works
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(new Blob([this.responseText], {
-          type: "text/plain"
-        }));
-        a.setAttribute("download", "config.json");
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    }
-    request.send('');
-}
