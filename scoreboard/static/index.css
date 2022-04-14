@@ -7,9 +7,33 @@
 }
 
 #config-container {
-    display:flex;
+    display: flex;
     flex-direction: column;
 }
+
+.config-item {
+    display:grid;
+    grid-template-columns: 10% 20% 50% 20%;
+    padding: 10px;
+}
+
+.config-move {
+    grid-column-start: 1;
+}
+
+.config-label {
+    grid-column-start: 2;
+}
+
+.config-field {
+    grid-column-start: 3;
+    grid-column-end: 4;
+}
+
+.config-actions {
+    grid-column-start: 4;
+}
+
 
 .config-item {
     margin:auto;
@@ -20,6 +44,10 @@
 body {
     background-color: #000000;
     height: 100%;
+}
+
+label {
+    font-weight:bold;
 }
 
 h1, h2 {

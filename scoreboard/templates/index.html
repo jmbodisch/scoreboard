@@ -23,14 +23,14 @@
 		    <form id="fields" method="POST" action="/update" >
             {% for file in config["files"] %}
             <div class="config-item">
-                <div class="left-side">
+                <div class="config-move">
                     <img class="pointer" src="../static/icons/move_up_black_24dp.svg" onclick="moveUp('{{file["name"]}}')"/>
                     <img class="pointer" src="../static/icons/move_down_black_24dp.svg" onclick="moveDown('{{file["name"]}}')"/>
-
-        			<label for="{{file["name"]}}">{{file["label"]}}</label>
                 </div>
-        			<div class="right-side">
-                        <img class="pointer" src="../static/icons/settings_black_24dp.svg" onclick="toggleDetails('{{file["name"]}}')"/>
+                    <div class="config-label">
+                        <label for="{{file["name"]}}">{{file["label"]}}</label>
+                    </div>
+        			<div class="config-field">
         			    {% if file["type"] == "int" %}
                             <input type="button" id="dec{{file["name"]}}" onclick="decrement('{{file["name"]}}')" value="-" />
                             <input type="number" name="{{file["name"]}}" id="{{file["name"]}}" value="{{file["value"]}}"/>
@@ -42,8 +42,11 @@
             			{% if file["type"] == "multiline" %}
             			<textarea name="{{file["name"]}}" id="{{file["name"]}}" >{{file["value"]}}</textarea>
             			{% endif %}
-                        <img class="pointer" src="../static/icons/delete_black_24dp.svg" onclick="deleteFile('{{file["name"]}}')"/>
         			</div>
+                    <div class="config-actions">
+                        <img class="pointer" src="../static/icons/settings_black_24dp.svg" onclick="toggleDetails('{{file["name"]}}')"/>
+                        <img class="pointer" src="../static/icons/delete_black_24dp.svg" onclick="deleteFile('{{file["name"]}}')"/>
+                    </div>
                     <br />
                     <div class="details" id="details-{{file["name"]}}">
                         <label for="fileName-{{file["name"]}}">File Name:</label>
