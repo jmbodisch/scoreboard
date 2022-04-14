@@ -2,25 +2,25 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>{{ config["title"] }}</title>
-	<script src="static/index.js" type="text/javascript"></script>
-	<link href="static/index.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ config["title"] }}</title>
+    <script src="static/index.js" type="text/javascript"></script>
+    <link href="static/index.css" rel="stylesheet" />
 </head>
 
 <body>
-	<div id="app-container">
-		<h1 style="color: blue">{{ config["title"] }}</h1>
-		<h2>Big Boy Stream Infrastructure</h2>
+    <div id="app-container">
+        <h1 style="color: blue">{{ config["title"] }}</h1>
+        <h2>Big Boy Stream Infrastructure</h2>
         <div id="error">
             {% if '' == config["root"] %}
             Your root directory is not configured. Please go to the host machine and add a root directory to the config.json file.
             {% endif %}
         </div>
-		<div id="config-container">
-		    <form id="fields" method="POST" action="/update" >
+        <div id="config-container">
+            <form id="fields" method="POST" action="/update" >
             {% for file in config["files"] %}
             <div class="config-item">
                 <div class="config-move">
@@ -30,19 +30,19 @@
                     <div class="config-label">
                         <label for="{{file["name"]}}">{{file["label"]}}</label>
                     </div>
-        			<div class="config-field">
-        			    {% if file["type"] == "int" %}
+                    <div class="config-field">
+                        {% if file["type"] == "int" %}
                             <input type="button" id="dec{{file["name"]}}" onclick="decrement('{{file["name"]}}')" value="-" />
                             <input type="number" name="{{file["name"]}}" id="{{file["name"]}}" value="{{file["value"]}}"/>
                             <input type="button" id="inc{{file["name"]}}" onclick="increment('{{file["name"]}}')" value="+" />
-            			{% endif %}
-            			{% if file["type"] == "string" %}
-            			<input type="text" name="{{file["name"]}}" id="{{file["name"]}}" value="{{file["value"]}}"/>
-            			{% endif %}
-            			{% if file["type"] == "multiline" %}
-            			<textarea name="{{file["name"]}}" id="{{file["name"]}}" >{{file["value"]}}</textarea>
-            			{% endif %}
-        			</div>
+                        {% endif %}
+                        {% if file["type"] == "string" %}
+                        <input type="text" name="{{file["name"]}}" id="{{file["name"]}}" value="{{file["value"]}}"/>
+                        {% endif %}
+                        {% if file["type"] == "multiline" %}
+                        <textarea name="{{file["name"]}}" id="{{file["name"]}}" >{{file["value"]}}</textarea>
+                        {% endif %}
+                    </div>
                     <div class="config-actions">
                         <img class="pointer" src="../static/icons/settings_black_24dp.svg" onclick="toggleDetails('{{file["name"]}}')"/>
                         <img class="pointer" src="../static/icons/delete_black_24dp.svg" onclick="deleteFile('{{file["name"]}}')"/>
@@ -58,8 +58,8 @@
                     </div>
                     <br />
             </div>
-    		{% endfor %}
-    		<input type="submit" value="update" />
+            {% endfor %}
+            <input type="submit" value="update" />
             </form>
             <div id="add-field">
                 <h3>Add a field</h3>
@@ -82,8 +82,8 @@
                 <input type="submit" value="Download config JSON" />
             </form>
             
-		</div>
-	</div>
+        </div>
+    </div>
 </body>
 
 </html>
