@@ -128,6 +128,10 @@ def create_app(test_config=None):
             mimetype='application/json',
             headers={'Content-Disposition':'attachment;filename=config.json'})
 
+    @app.route('/scoreboard', methods=["GET"])
+    def scoreboard():
+        return render_template('scoreboard.html'), 400
+
     @app.route('/favicon.ico')
     def favicon():
         return send_from_directory(os.path.join(app.root_path, 'static'),
