@@ -130,7 +130,7 @@ def create_app(test_config=None):
 
     @app.route('/scoreboard', methods=["GET"])
     def scoreboard():
-        return render_template('scoreboard.html'), 400
+        return render_template('scoreboard.html', config=config), 400
 
     @app.route('/favicon.ico')
     def favicon():

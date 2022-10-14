@@ -1,13 +1,3 @@
-#scorebar {
-    width: 1280px;
-    height: 56px;
-    background-image: linear-gradient(to right, yellow, purple);
-}
-
-svg {
-    width: 100%;
-}
-
 #team1 {
     width: 40%;
 }
