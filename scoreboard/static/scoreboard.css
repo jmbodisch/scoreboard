@@ -1,0 +1,26 @@
+#team1 {
+    width: 40%;
+}
+
+#score1 {
+    width: 10%;
+}
+
+#score2 {
+    width: 10%;
+}
+
+#team2 {
+    width: 40%;
+}
+
+.outline {
+    font-size: 2.75vw;
+    font-family: Arial;
+    color: white;
+    -webkit-text-stroke: 2px black;
+    text-align: center;
+    display: inline;
+    float: left;
+    height: 100%;
+}
