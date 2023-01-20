@@ -23,10 +23,13 @@ def create_app():
             dump(config, outfile)
             outfile.close()
 
-
     if 'root' not in config:
         logging.warning('No root directory defined in config. Please specify a root directory, otherwise the local directory will be used.')
-        config["root"] = ''
+        config["root"] = 'example'
+
+    if not os.path.exists(config['root']):
+        logging.warning('The specified root directory did not exist. Creating one.')
+        os.makedirs(config['root'])
 
     logging.info('Gathering initial values')
     for file in config["files"]:
