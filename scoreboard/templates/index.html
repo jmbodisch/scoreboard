@@ -54,23 +54,24 @@
                     <br />
                     <div class="details" id="details-{{file["name"]}}">
                         <div class="detail-label">
-                            <label for="fileName-{{file["name"]}}">File Name:</label>
-                        </div>
-                        <div class="detail-field">
-                            <input type="text" name="fileName-{{file["name"]}}" value="{{file["path"]}}"/>
-                        </div>
-                        <div class="detail-label">
                             <label for="label-{{file["name"]}}">File Label:</label>
                         </div>
                         <div class="detail-field">
-                            <input type="text" name="label-{{file["name"]}}" value="{{file["label"]}}"/>
+                            <input type="text" id="label-{{file["name"]}}" name="label-{{file["name"]}}" value="{{file["label"]}}"/>
+                        </div>
+                        <div class="detail-label">
+                            <label for="name-{{file["name"]}}">File Name:</label>
+                        </div>
+                        <div class="detail-field">
+                            <input type="text" id="name-{{file["name"]}}" name="name-{{file["name"]}}" value="{{file["name"]}}"/>
                         </div>
                         <div class="detail-label">
                             <label for="fileName-{{file["name"]}}">System File Name:</label>
                         </div>
                         <div class="detail-field">
-                            <input type="text" name="name-{{file["name"]}}" value="{{file["name"]}}"/>
+                            <input type="text" id="path-{{file["name"]}}" name="path-{{file["name"]}}" value="{{file["path"]}}"/>
                         </div>
+                        <button type="button" id="update-details-button-{{file["name"]}}" onclick="updateDetails('{{file["name"]}}')">Update Details</button>
                     </div>
                     <br />
             </div>

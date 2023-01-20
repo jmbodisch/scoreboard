@@ -9,11 +9,21 @@ from scoreboard.util import *
 import logging
 
 def create_app(test_config=None):
-
     logging.info('loading config.json')
-    configFile = open("config.json")
-    config = load(configFile)
-    configFile.close()
+    config = {}
+    try:
+        configFile = open("config.json", 'r+')
+        config = load(configFile)
+        configFile.close()
+    except:
+        logging.warning('Error while loading config. Instantiating default config.')
+        sampleFile = open("sampleconfig.json")
+        config = load(sampleFile)
+        sampleFile.close()
+        outfile = open('config.json', 'w+')
+        dump(config, outfile)
+        outfile.close()
+
 
     if not 'root' in config:
         logging.warning('No root directory defined in config. Please specify a root directory, otherwise the local directory will be used.')
@@ -127,6 +137,18 @@ def create_app(test_config=None):
         return Response(dumps(configCopy, indent=1),
             mimetype='application/json',
             headers={'Content-Disposition':'attachment;filename=config.json'})
+
+    @app.route('/details', methods=["POST"])
+    def updateDetails():
+        data = request.get_json()
+        for index, file in enumerate(config['files']):
+            if file['name'] == data['name']:
+                file['name'] = data['newName']
+                file['label'] = data['label']
+                file['path'] = data['path']
+                config['files'][index] = file
+
+        return render_template("index.html", config=config), 200
 
     @app.route('/scoreboard', methods=["GET"])
     def scoreboard():
