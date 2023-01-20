@@ -35,8 +35,8 @@ function decrement(fileName) {
 function moveUp(fileName) {
     let request = new XMLHttpRequest();
     request.open("GET", '/moveup/' + fileName);
-    request.onload = function() {
-        location.assign('/');
+    request.onload = function(event) {
+        document.body.innerHTML = event.currentTarget.response;
     };
     request.send('');
 }
@@ -44,8 +44,8 @@ function moveUp(fileName) {
 function moveDown(fileName) {
     let request = new XMLHttpRequest();
     request.open("GET", '/movedown/' + fileName);
-    request.onload = function() {
-        location.assign('/');
+    request.onload = function(event) {
+        document.body.innerHTML = event.currentTarget.response;
     };
     request.send('');
 }
@@ -53,8 +53,8 @@ function moveDown(fileName) {
 function deleteFile(fileName) {
     let request = new XMLHttpRequest();
     request.open("GET",'/delete/' + fileName);
-    request.onload = function() {
-        location.assign('/');
+    request.onload = function(event) {
+        document.body.innerHTML = event.currentTarget.response;
     };
     request.send('');
 }
@@ -73,4 +73,28 @@ function saveConfig() {
 function toggleDetails(file) {
     let div = document.getElementById("details-" + file);
     div.classList.toggle('visibleDetails');
+}
+
+function updateDetails(name) {
+    let request = new XMLHttpRequest();
+
+    request.open("POST", "/details");
+    request.setRequestHeader("Content-Type", "application/json");
+
+    newName = document.getElementById('name-'+name).value;
+    newPath = document.getElementById('path-'+name).value;
+    newLabel = document.getElementById('label-'+name).value;
+
+    let data = {
+        'name': name,
+        'newName': newName,
+        'path': newPath,
+        'label': newLabel
+    };
+
+    request.onload = function(event) {
+        document.body.innerHTML = event.currentTarget.response;
+    };
+
+    request.send(JSON.stringify(data));
 }

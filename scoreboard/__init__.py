@@ -128,6 +128,7 @@ def create_app(test_config=None):
             mimetype='application/json',
             headers={'Content-Disposition':'attachment;filename=config.json'})
 
+        for index, file in enumerate(config['files']):
     @app.route('/scoreboard', methods=["GET"])
     def scoreboard():
         return render_template('scoreboard.html', config=config), 400
