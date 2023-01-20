@@ -1,0 +1,14 @@
+{
+    "title": "Stream File Manager",
+    "root": "example/",
+    "files": [
+        {
+            "name": "file1",
+            "label": "First File",
+            "path": "file1.txt",
+            "type": "string",
+            "order": 0,
+            "value": ""
+        }
+    ]
+}
