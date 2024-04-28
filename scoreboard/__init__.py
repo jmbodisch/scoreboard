@@ -88,24 +88,24 @@ def create_app():
 
     @app.route('/movedown/<file_name>')
     def move_down(file_name):
-        for file in config["files"]:
-            if file["name"] == file_name:
-                if file["order"] >= len(config["files"]) - 1:
-                    return render_template("index.html", config=config), 400
-                update_order(config, file["order"], file["order"]+1)
-                return render_template("index.html", config=config), 200
+        for file in config['files']:
+            if file['name'] == file_name:
+                if file['order'] >= len(config['files']) - 1:
+                    return render_template('index.html', config=config), 400
+                update_order(config, file['order'], file['order']+1)
+                return render_template('index.html', config=config), 200
 
-            return render_template("index.html", config=config), 200
+        return render_template('index.html', config=config), 200
 
     @app.route('/moveup/<file_name>')
     def move_up(file_name):
-        for file in config["files"]:
-            if file["name"] == file_name:
-                if file["order"] <= 0:
-                    return render_template("index.html", config=config), 400
-                update_order(config, file["order"], file["order"]-1)
-                return render_template("index.html", config=config), 200
-            return render_template("index.html", config=config), 200
+        for file in config['files']:
+            if file['name'] == file_name:
+                if file['order'] <= 0:
+                    return render_template('index.html', config=config), 400
+                update_order(config, file['order'], file['order']-1)
+                return render_template('index.html', config=config), 200
+        return render_template('index.html', config=config), 200
 
 
     @app.route('/<file_name>')
