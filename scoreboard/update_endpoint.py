@@ -9,19 +9,19 @@ def update_file(root, file, new_value):
     if validate_input():
         write_file(root, file, new_value)
     else:
-        return "failed"
+        return 'failed'
     return new_value
 
 def get_value(root, file):
     '''
     Gets the contents of a text file on the host system.
     '''
-    if exists(root+file["path"]):
-        with open(root+file["path"], "r", encoding="utf-8") as outfile:
+    if exists(root+file['path']):
+        with open(root+file['path'], 'r', encoding='utf-8') as outfile:
             response = outfile.read()
             outfile.close()
     else:
-        response = ""
+        response = ''
     return response
 
 def validate_input():
@@ -34,12 +34,12 @@ def write_file(root, file, new_value):
     '''
     Writes to a file on the host system.
     '''
-    new_value = new_value.replace("\r", "")
-    if exists(root+file["path"]):
-        editable = open(root+file["path"], "r+", encoding="utf-8")
+    new_value = new_value.replace('\r', '')
+    if exists(root+file['path']):
+        editable = open(root+file['path'], 'r+', encoding='utf-8')
     else:
-        editable = open(root+file["path"], "w+", encoding="utf-8")
+        editable = open(root+file['path'], 'w+', encoding='utf-8')
     editable.write(new_value)
-    file["value"] = new_value
+    file['value'] = new_value
     editable.truncate()
     editable.close()
