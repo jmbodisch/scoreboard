@@ -95,17 +95,6 @@ h1, h2 {
     color:red;
 }
 
-.details {
-    grid-template-columns: 20% 80%;
-    margin-top: 5px;
-    padding: 0px;
-    height: 0px;
-    visibility: hidden;
-    background-color:lightgoldenrodyellow;
-    grid-column: span 2;
-    transition: height 0.5s, visibility 0.25s, padding 0.5s;
-}
-
 .detail-label {
     grid-column-start: 1;
     margin: auto;
@@ -116,6 +105,18 @@ h1, h2 {
     margin:auto;
 }
 
+.details {
+    grid-template-columns: 20% 80%;
+    margin-top: 5px;
+    padding: 0px;
+    height: 0px;
+    visibility: hidden;
+    background-color:lightgoldenrodyellow;
+    grid-column: span 2;
+    padding: 0px;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+    transition: height 0.5s, visibility 0.25s, clip-path 0.25s, padding 0.125s linear 0.25s;
+}
 
 .visibleDetails {
     margin-top: 5px;
@@ -123,7 +124,8 @@ h1, h2 {
     visibility: visible;
     grid-column: span 2;
     height: 150px;
-    transition: height 0.5s;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    transition: height 0.25s, clip-path 0.5s, padding 0.25s;
 }
 
 .pointer {

@@ -11,30 +11,30 @@ def create_app():
     logging.info('loading config.json')
     config = {}
     try:
-        with open("config.json", 'r+', encoding="utf-8") as config_file:
+        with open('config.json', 'r+', encoding='utf-8') as config_file:
             config = load(config_file)
             config_file.close()
     except Exception:
         logging.warning('Error while loading config. Instantiating default config.')
-        with open("sampleconfig.json", encoding="utf-8") as sample_file:
+        with open('sampleconfig.json', encoding='utf-8') as sample_file:
             config = load(sample_file)
             sample_file.close()
-        with open('config.json', 'w+', encoding="utf-8") as outfile:
+        with open('config.json', 'w+', encoding='utf-8') as outfile:
             dump(config, outfile)
             outfile.close()
 
     if 'root' not in config:
         logging.warning('No root directory defined in config. Please specify a root directory, otherwise the local directory will be used.')
-        config["root"] = 'example'
+        config['root'] = 'example'
 
     if not os.path.exists(config['root']):
         logging.warning('The specified root directory did not exist. Creating one.')
         os.makedirs(config['root'])
 
     logging.info('Gathering initial values')
-    for file in config["files"]:
-        file["value"] = get_value(config["root"], file)
-        logging.info(file["name"] + ": " + file["value"])
+    for file in config['files'].values():
+        file['value'] = get_value(config['root'], file)
+        logging.info(file['name'] + ': ' + file['value'])
 
 
     app = Flask(__name__)
@@ -50,95 +50,98 @@ def create_app():
 
     @app.route('/')
     def index():
-        return render_template("index.html", config=config)
+        return render_template('index.html', config=config)
 
     @app.route('/update/<file_name>/<new_value>')
     def update(file_name, new_value):
-        for file in config["files"]:
-            if file["name"] == file_name:
-                response = update_file(config["root"], file, new_value)
-                return response, 200
-        return "not found.", 400
+        if file_name in config['files']:
+            response = update_file(config['root'], config['files'][file_name], new_value)
+            return response, 200
+        return 'not found.', 400
 
     @app.route('/update', methods =['POST'])
     def update_multiline():
         for variable in request.form:
-            for file in config["files"]:
-                if file["name"] == variable:
-                    update_file(config["root"], file, request.form[variable])
-                    sort_config(config)
-        return render_template("index.html", config=config), 200
+            if variable in config['files']:
+                update_file(config['root'], config['files'][variable], request.form[variable])
+                sort_config(config)
+        return render_template('index.html', config=config), 200
 
-    @app.route('/add', methods=["POST"])
+    @app.route('/add', methods=['POST'])
     def add_file():
-        file_name = format_filename(request.form["name"])
-        file_path = format_filename(request.form["name"]) + ".txt"
-        file_type = request.form["type"]
-        label = request.form["name"]
+        file_name = format_filename(request.form['name'])
+        file_path = format_filename(request.form['name']) + '.txt'
+        file_type = request.form['type']
+        label = request.form['name']
         file = {
             'name': file_name,
             'label': label,
             'path': file_path,
             'type': file_type,
-            'order': len(config["files"])
+            'order': len(config['files'])
         }
-        config["files"].append(file)
+        config['files'][file_name] = file
         sort_config(config)
-        return render_template("index.html", config=config), 201
+        return render_template('index.html', config=config), 201
 
     @app.route('/movedown/<file_name>')
     def move_down(file_name):
-        for file in config['files']:
-            if file['name'] == file_name:
-                if file['order'] >= len(config['files']) - 1:
-                    return render_template('index.html', config=config), 400
-                update_order(config, file['order'], file['order']+1)
-                return render_template('index.html', config=config), 200
+        if file_name in config['files']:
+            file = config['files'][file_name]
+            if file['order'] >= len(config['files']) - 1:
+                return render_template('index.html', config=config), 400
+            update_order(config, file['order'], file['order']+1)
+            return render_template('index.html', config=config), 200
 
         return render_template('index.html', config=config), 200
 
     @app.route('/moveup/<file_name>')
     def move_up(file_name):
-        for file in config['files']:
-            if file['name'] == file_name:
-                if file['order'] <= 0:
-                    return render_template('index.html', config=config), 400
-                update_order(config, file['order'], file['order']-1)
-                return render_template('index.html', config=config), 200
+        if file_name in config['files']:
+            file = config['files'][file_name]
+            if file['order'] <= 0:
+                return render_template('index.html', config=config), 400
+            update_order(config, file['order'], file['order']-1)
+            return render_template('index.html', config=config), 200
         return render_template('index.html', config=config), 200
 
 
     @app.route('/<file_name>')
     def get(file_name):
-        for file in config["files"]:
-            if file["name"] == file_name:
-                response = get_value(config["root"], file)
-                return response, 200
-        return "not found.", 400
+        if file_name in config['files']:
+            file = config['files'][file_name]
+            response = get_value(config['root'], file)
+            return response, 200
+        return 'not found.', 400
 
-    @app.route('/delete/<file_name>', methods=["GET"])
+    @app.route('/delete/<file_name>', methods=['GET'])
     def delete(file_name):
-        for file in config["files"]:
-            if file["name"] == file_name:
-                config["files"].remove(file)
-        return render_template("index.html", config=config), 200
+        if file_name in config['files']:
+            config['files'].pop(file_name)
+        return render_template('index.html', config=config), 200
 
     @app.route('/save')
     def save_config():
-        with open('config.json', 'w+', encoding="utf-8") as file:
+        with open('config.json', 'w+', encoding='utf-8') as file:
             dump(config, file)
             file.close()
-        return "", 200
+        return '', 200
 
-    @app.route('/download', methods=["GET"])
+    @app.route('/download', methods=['GET'])
     def download_config():
         config_copy = config.copy()
         config_copy['root'] = ''
         return Response(dumps(config_copy, indent=1),
             mimetype='application/json',
             headers={'Content-Disposition':'attachment;filename=config.json'})
+    
+    @app.route('/values', methods=['GET'])
+    def get_values():
+        file_data = config["files"].copy()
+        return Response(dumps(file_data),
+            mimetype='application/json')
 
-    @app.route('/details', methods=["POST"])
+    @app.route('/details', methods=['POST'])
     def update_details():
         data = request.get_json()
         for index, file in enumerate(config['files']):
@@ -149,11 +152,11 @@ def create_app():
                 config['files'][index] = file
                 save_config()
 
-        return render_template("index.html", config=config), 200
+        return render_template('index.html', config=config), 200
 
-    @app.route('/scoreboard', methods=["GET"])
+    @app.route('/scoreboard', methods=['GET'])
     def scoreboard():
-        return render_template('scoreboard.html', config=config), 400
+        return render_template('scoreboard.html', config=config), 200
 
     @app.route('/favicon.ico')
     def favicon():

@@ -25,7 +25,7 @@
         </div>
         <div id="config-container">
             <form id="fields" method="POST" action="/update" >
-            {% for file in config["files"] %}
+            {% for file in config["files"].values() %}
             <div class="config-item {% if loop.first %}first-config-item {% elif loop.last %}last-config-item {% endif %}{% if loop.index is even %}light-item{%else%}dark-item {% endif %}">
                 <div class="config-move">
                     <img class="pointer" src="../static/icons/move_up_black_24dp.svg" onclick="moveUp('{{file["name"]}}')"/>
