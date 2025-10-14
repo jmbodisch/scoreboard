@@ -131,3 +131,7 @@ h1, h2 {
 .pointer {
     cursor: pointer;
 }
+
+textarea {
+    max-width: 95%;
+}
