@@ -1,8 +1,8 @@
 '''A Flask/WSGI application that will create and modify text files.'''
 import os
 import logging
-from json import load, dump, dumps
-from flask import Flask, render_template, send_from_directory, request, Response
+from json import load, loads, dump, dumps
+from flask import Flask, render_template, send_from_directory, request, Response, make_response
 from flask_cors import CORS
 from scoreboard.update_endpoint import update_file, get_value
 from scoreboard.util import *
@@ -162,5 +162,20 @@ def create_app():
     def favicon():
         return send_from_directory(os.path.join(app.root_path, 'static'),
                                 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    
+    @app.route('/config')
+    def get_config():
+        return make_response((dumps(config), 200))
+
+    @app.route('/update2', methods =['POST'])
+    def update_reactive():
+        data = request.get_data(as_text=True)
+        parsed_data = loads(data)
+        for variable in parsed_data['files']:
+            if variable in config['files']:
+                logging.info(f'{variable}: {parsed_data["files"][variable]["value"]}')
+                update_file(config['root'], config['files'][variable], parsed_data["files"][variable]["value"])
+                sort_config(config)
+        return make_response((dumps(config), 200))
 
     return app
