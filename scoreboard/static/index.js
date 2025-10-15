@@ -98,3 +98,19 @@ function updateDetails(name) {
 
     request.send(JSON.stringify(data));
 }
+
+function replaceConfig(event) {
+    console.log(event);
+}
+
+function getConfig() {
+    let request = new XMLHttpRequest();
+
+    request.open("GET", "/config");
+
+    request.onload = function(event) { 
+        replaceConfig(event.currentTarget.response);
+    }
+
+    request.send();
+}
